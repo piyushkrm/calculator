@@ -31,9 +31,16 @@ html, body {
 }
 
 .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
     border: 2px solid black;
     background-color: blueviolet;
     width: 18vw;
     height: 47vh;
     padding: 10px;
+}
+
+.button-merged {
+    grid-column: span 2;
 }
