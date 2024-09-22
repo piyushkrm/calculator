@@ -22,3 +22,8 @@
 .items-content {
     align-items: center;
 }
+
+.join {
+    background-color: aqua;
+    width: 120px;
+}
