@@ -3,33 +3,29 @@ const buttons = document.querySelectorAll(".button");
 const inputField = document.querySelector("input");
 
 const CLEAR = "C";
-const EQUAL = "=";
+const EQUALS = "=";
 
-try {
     Array.from(buttons).forEach((button) => {
         button.addEventListener("click", (e) => {
             const clickedValue = e.target.value; // Use the value attribute instead of innerHTML
 
-            if (e.target.innerHTML === "=") {
+            if (clickedValue === EQUALS) {
                 try {
                     string = eval(string);
-                    document.querySelector('input').value = string;
+                    inputField.value = string;
                 } catch (error) {
-                    document.querySelector('input').value = "Error";
+                    inputField.value = "Error";
                     string = "";
                 }
-            } else if (e.target.innerHTML === "C") {
+            } else if (clickedValue === CLEAR) {
                 // Clear the input
                 string = "";
-                document.querySelector('input').value = string;
+                inputField.value = string;
             } else {
                 // Add the clicked button's value to the string (instead of the innerHTML)
                 string += clickedValue;
-                document.querySelector('input').value = string;
+                inputField.value = string;
             }
         });
     });
-} catch (error) {
-    console.error(error);
-    document.querySelector('input').value = "Error";
-}
+
