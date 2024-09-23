@@ -1,5 +1,9 @@
 let string = "";
 const buttons = document.querySelectorAll(".button");
+const inputField = document.querySelector("input");
+
+const CLEAR = "C";
+const EQUAL = "=";
 
 try {
     Array.from(buttons).forEach((button) => {
