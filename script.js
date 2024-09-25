@@ -25,7 +25,10 @@ document.addEventListener("keydown", (e) => {
         string = "";
         inputField.value = string;
 
-    } else {
+    } else if (!isNaN(key) || ["+", "-", "*", "/", "."].includes(key)) {
+        // Add key pressed to the string if it's a valid number or operator
+        string += key;
+        inputField.value = string;
         // Handle other key presses
     }
 });
