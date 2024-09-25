@@ -29,3 +29,18 @@ const EQUALS = "=";
         });
     });
 
+
+// Optional: Keyboard support
+document.addEventListener("keydown", (e) => {
+    const key = e.key;
+
+    if (key === "Enter") {
+        // Trigger equals button
+        // Call the same logic as EQUALS button
+    } else if (key === "Escape") {
+        // Trigger clear button
+    } else {
+        // Handle other key presses
+    }
+});
+
