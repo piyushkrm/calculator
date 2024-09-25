@@ -5,9 +5,16 @@ const inputField = document.querySelector("input");
 const CLEAR = "C";
 const EQUALS = "=";
 
+// Flag to prevent duplication between click and keypress
+let isButtonClicked = false;
 
 // Optional: Keyboard support
 document.addEventListener("keydown", (e) => {
+        if (isButtonClicked) {
+            isButtonClicked = false;    //Reset flag after button is clicked
+            return; // Skip keydown event if button is clicked
+        }
+
     const key = e.key;
 
     if (key === "Enter") {
@@ -20,7 +27,7 @@ document.addEventListener("keydown", (e) => {
             string = "";
         }
         // Call the same logic as EQUALS button
-    } else if (key === "Escape") {
+    } else if (key === "c" || key === "C") {
         // Trigger clear button
         string = "";
         inputField.value = string;
@@ -57,5 +64,7 @@ document.addEventListener("keydown", (e) => {
         });
     });
 
+
+    // Function to evaluate the expression
 
 
