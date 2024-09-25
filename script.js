@@ -13,6 +13,8 @@ document.addEventListener("keydown", (e) => {
         evaluateExpression();
     } else if (key === "Escape" || key === "C" || key === "c") {
         clearInput();
+    } else if (key === "Backspace") {
+        backspace();
     } else if (!isNaN(key) || ["+", "-", "*", "/", "."].includes(key)) {
         string += key;
         inputField.value = string;
@@ -27,6 +29,8 @@ Array.from(buttons).forEach((button) => {
             evaluateExpression();
         } else if (clickedValue === CLEAR) {
             clearInput();
+        } else if (clickedValue === "←") {
+            backspace();
         } else {
             // Clear the error message when a new input is provided
             if (inputField.value.includes("Error")) {
@@ -65,5 +69,13 @@ function evaluateExpression() {
 // Function to clear the input
 function clearInput() {
     string = "";
+    inputField.value = string;
+}
+
+
+// Backspace button function
+
+function backspace() {
+    string = string.slice(0, -1);
     inputField.value = string;
 }
