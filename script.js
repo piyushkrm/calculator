@@ -22,7 +22,9 @@ document.addEventListener("keydown", (e) => {
         // Call the same logic as EQUALS button
     } else if (key === "Escape") {
         // Trigger clear button
-        
+        string = "";
+        inputField.value = string;
+
     } else {
         // Handle other key presses
     }
