@@ -93,12 +93,14 @@ function adjustFontSize() {
     const length = inputField.value.length;
 
 
-    if (length > 10) {
-        inputField.style.fontSize = "18px" // Decrease font size
-    } else if (length > 5) {
+    if (length > 15) {
+        inputField.style.fontSize = "16px" // Very small font for long inputs
+    } else if (length > 10) {
+        inputField.style.fontSize = "20px" // Medium-small font size
+    } else if(length > 5) {
         inputField.style.fontSize = "24px" // Medium font size
     } else {
-        inputField.style.fontSize = "32px" // Default large font size
+        inputField.style.fontSize = "32px" //Default large font size
     }
 }
 
