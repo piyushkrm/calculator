@@ -18,7 +18,14 @@ document.addEventListener("keydown", (e) => {
     } else if (key === "Backspace") {
         backspace();
     } else if (/[\d+\-*/.]/.test(key)) {
+
+        if (isResult && ["+", "-", "*", "/"].includes(key)){
+            string = inputField.value;   //// Reset the string to the current result
+            isResult = false; //Reset the flag
+        }
+
         // Check if the last character is an operator
+        // Check for multiple operators
         if (["+", "-", "*", "/"].includes(key) && ["+", "-", "*", "/"].includes(string.slice(-1))){
             return; //Prevent adding multiple operators
         }
@@ -63,6 +70,7 @@ function evaluateExpression() {
         if (string.trim() !== "") {
             string = eval(string);
             inputField.value = string;
+            isResult = true; // Set flag to true for next calculation
         }
     } catch (error) {
         // Display specific error messages
@@ -72,6 +80,7 @@ function evaluateExpression() {
             inputField.value = "Error: Invalid input";
         }
         string = ""; // Clear the string for safety
+        isResult = false; // Reset the flag for next calculation
     }
 }
 
