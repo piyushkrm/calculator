@@ -16,8 +16,10 @@ document.addEventListener("keydown", (e) => {
     } else if (key === "Backspace") {
         backspace();
     } else if (/[\d+\-*/.]/.test(key)) {
-
-
+        // Check if the last character is an operator
+        if (["+", "-", "*", "/"].includes(key) && ["+", "-", "*", "/"].includes(string.slice(-1))){
+            return; //Prevent adding multiple operators
+        }
         string += key;
         inputField.value = string;
     } else {
