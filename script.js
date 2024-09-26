@@ -5,6 +5,8 @@ const inputField = document.querySelector("input");
 const CLEAR = "C";
 const EQUALS = "=";
 
+let isResult = false; //
+
 // Optional: Keyboard support
 document.addEventListener("keydown", (e) => {
     const key = e.key;
