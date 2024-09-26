@@ -19,11 +19,11 @@ html, body {
     overflow-y: auto;  /* Allow vertical scrolling if content overflows */
     transition: height 0.2s ease; /* Smooth transition */
     font-size: 24px; /* Adjust to match your style */
-    grid-column: span 4; /* Make input span all 4 columns */
-    font-size: 20px;
     text-align: right;
     margin-bottom: 10px;
-    transition: font-size 0.2s ease;
+    resize: none; /* Prevent resizing */
+    border: 1px solid black; /* Adding a border for consistency */
+    border-radius: 6px; /* Matching border-radius with buttons */
 }
 
 .button {
