@@ -87,6 +87,24 @@ function evaluateExpression() {
     }
 }
 
+// You can adjust the font size based on the length of the input string
+
+function adjustFontSize() {
+    const length = inputField.value.length;
+
+
+    if (length > 10) {
+        inputField.style.fontSize = "18px" // Decrease font size
+    } else if (length > 5) {
+        inputField.style.fontSize = "24px" // Medium font size
+    } else {
+        inputField.style.fontSize = "32px" // Default large font size
+    }
+}
+
+// Call this function whenever the input changes
+inputField.addEventListener('input', adjustFontSize);
+
 // Function to clear the input
 function clearInput() {
     string = "";
