@@ -15,9 +15,14 @@ document.addEventListener("keydown", (e) => {
         clearInput();
     } else if (key === "Backspace") {
         backspace();
-    } else if (!isNaN(key) || ["+", "-", "*", "/", "."].includes(key)) {
+    } else if (/[\d+\-*/.]/.test(key)) {
+
+
         string += key;
         inputField.value = string;
+    } else {
+        // Prevent any other characters from being entered
+        e.preventDefault();
     }
 });
 
@@ -31,10 +36,10 @@ Array.from(buttons).forEach((button) => {
             clearInput();
         } else if (clickedValue === "←") {
             backspace();
-        } else {
-            // Clear the error message when a new input is provided
-            if (inputField.value.includes("Error")) {
-                string = ""; // Reset string if an error was displayed
+        } else if (/[\d+\-*/.]/.test(clickedValue)) {
+            if (["+", "-", "*", "/"].includes(clickedValue) && ["+", "-", "*", "/"].includes(string.slice(-1))) {
+                // prevent adding multiple operators in a row
+                return;
             }
             string += clickedValue;
             inputField.value = string;
@@ -71,7 +76,6 @@ function clearInput() {
     string = "";
     inputField.value = string;
 }
-
 
 // Backspace button function
 
