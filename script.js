@@ -12,6 +12,9 @@ document.addEventListener("keydown", (e) => {
     const key = e.key;
 
     if (key === "Enter") {
+        if (isResult) {
+            return; // Prevent evaluation if the last action was a result
+        }
         evaluateExpression();
     } else if (key === "Escape" || key === "C" || key === "c") {
         clearInput();
