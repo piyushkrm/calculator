@@ -13,12 +13,17 @@ html, body {
 }
 
 .input {
+    width: 100%; /* Adjust this as needed */
+    min-height: 50px; /* Default minimum height */
+    max-height: 200px; /* Limit to avoid excessive growth */
+    overflow-y: auto;  /* Allow vertical scrolling if content overflows */
+    transition: height 0.2s ease; /* Smooth transition */
+    font-size: 24px; /* Adjust to match your style */
     grid-column: span 4; /* Make input span all 4 columns */
-    height: 40px;
     font-size: 20px;
     text-align: right;
     margin-bottom: 10px;
-    transition: font-size 0.2s ease; 
+    transition: font-size 0.2s ease;
 }
 
 .button {

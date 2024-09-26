@@ -4,118 +4,118 @@ const inputField = document.querySelector("input");
 
 const CLEAR = "C";
 const EQUALS = "=";
+const BACKSPACE = "←";
 
-let isResult = false; //
+let isResult = false;
 
-// Optional: Keyboard support
-document.addEventListener("keydown", (e) => {
+// Keyboard support
+document.addEventListener("keydown", handleKeyboardInput);
+
+// Button click support
+Array.from(buttons).forEach((button) => {
+    button.addEventListener("click", (e) => {
+        const clickedValue = e.target.value;
+        handleButtonInput(clickedValue);  // Correct function to handle button clicks
+    });
+});
+
+// Handle keyboard input
+function handleKeyboardInput(e) {
     const key = e.key;
-
     if (key === "Enter") {
-        if (isResult) {
-            return; // Prevent evaluation if the last action was a result
-        }
         evaluateExpression();
     } else if (key === "Escape" || key === "C" || key === "c") {
         clearInput();
     } else if (key === "Backspace") {
         backspace();
     } else if (/[\d+\-*/.]/.test(key)) {
-
-        if (isResult && ["+", "-", "*", "/"].includes(key)){
-            string = inputField.value;   //// Reset the string to the current result
-            isResult = false; //Reset the flag
-        }
-
-        // Check if the last character is an operator
-        // Check for multiple operators
-        if (["+", "-", "*", "/"].includes(key) && ["+", "-", "*", "/"].includes(string.slice(-1))){
-            return; //Prevent adding multiple operators
-        }
-        string += key;
-        inputField.value = string;
+        processInput(key);
     } else {
-        // Prevent any other characters from being entered
         e.preventDefault();
     }
-});
+}
 
-Array.from(buttons).forEach((button) => {
-    button.addEventListener("click", (e) => {
-        const clickedValue = e.target.value;
+// Handle button input
+function handleButtonInput(value) {
+    if (value === EQUALS) {
+        evaluateExpression();
+    } else if (value === CLEAR) {
+        clearInput();
+    } else if (value === BACKSPACE) {
+        backspace();
+    } else {
+        processInput(value);
+    }
+}
 
-        if (clickedValue === EQUALS) {
-            evaluateExpression();
-        } else if (clickedValue === CLEAR) {
-            clearInput();
-        } else if (clickedValue === "←") {
-            backspace();
-        } else if (/[\d+\-*/.]/.test(clickedValue)) {
-            if (["+", "-", "*", "/"].includes(clickedValue) && ["+", "-", "*", "/"].includes(string.slice(-1))) {
-                // prevent adding multiple operators in a row
-                return;
-            }
-            string += clickedValue;
-            inputField.value = string;
-        }
-    });
-});
+// Process the input and update the display
+function processInput(input) {
+    if (isResult && ["+", "-", "*", "/"].includes(input)) {
+        string = inputField.value; // Reset the input field to current result
+        isResult = false;
+    }
 
-// Function to evaluate the expression
+    // Prevent multiple consecutive operators
+    if (["+", "-", "*", "/"].includes(input) && ["+", "-", "*", "/"].includes(string.slice(-1))) {
+        return; // Prevent adding multiple operators
+    }
+
+    string += input;
+    inputField.value = string;
+    adjustFontSize();
+}
+
+// Evaluate the current expression
 function evaluateExpression() {
     try {
-        // Check for division by zero before eval
+        // Prevent division by zero error
         if (string.includes("/") && string.split("/").pop() === "0") {
             throw new Error("Division by zero");
         }
 
-        // Try to evaluate the expression
         if (string.trim() !== "") {
-            string = eval(string);
+            string = eval(string); // Evaluate the expression
             inputField.value = string;
             isResult = true; // Set flag to true for next calculation
+            adjustFontSize();
         }
     } catch (error) {
-        // Display specific error messages
-        if (error.message === "Division by zero") {
-            inputField.value = "Error: Division by zero";
-        } else {
-            inputField.value = "Error: Invalid input";
-        }
-        string = ""; // Clear the string for safety
+        inputField.value = error.message === "Division by zero" ? "Error: Division by zero" : "Error: Invalid input";
+        string = ""; // Clear the input for safety
         isResult = false; // Reset the flag for next calculation
+        adjustFontSize();
     }
 }
 
-// You can adjust the font size based on the length of the input string
-
-function adjustFontSize() {
-    const length = inputField.value.length;
-
-
-    if (length > 15) {
-        inputField.style.fontSize = "16px" // Very small font for long inputs
-    } else if (length > 10) {
-        inputField.style.fontSize = "20px" // Medium-small font size
-    } else if(length > 5) {
-        inputField.style.fontSize = "24px" // Medium font size
-    } else {
-        inputField.style.fontSize = "32px" //Default large font size
-    }
-}
-
-// Call this function whenever the input changes
-inputField.addEventListener('input', adjustFontSize);
-
-// Function to clear the input
+// Clear the input
 function clearInput() {
     string = "";
-    inputField.value = string;
+    inputField.value = string; // Correct reference
+    adjustFontSize();
 }
 
-// Backspace button function
-
+// Handle backspace (delete last character)
 function backspace() {
     string = string.slice(0, -1);
     inputField.value = string;
+    adjustFontSize();
+}
+
+// Adjust the font size and color based on the length of the input
+function adjustFontSize() {
+    const length = inputField.value.length;
+
+    if (length > 15) {
+        inputField.style.fontSize = "20px"; // Very small font for long inputs
+    } else if (length > 10) {
+        inputField.style.fontSize = "25px"; // Medium-small font size
+    } else if (length > 5) {
+        inputField.style.fontSize = "28px"; // Medium font size
+    } else {
+        inputField.style.fontSize = "35px"; // Default large font size
+    }
+
+    // Adjust the height based on the number of characters
+    const newHeight = Math.max(50, Math.min(200, length * 3)); // Adjust the multiplier to suit your needs
+    inputField.style.height = newHeight + 'px'; // Dynamically set the height
 }
